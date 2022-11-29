@@ -9,12 +9,20 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Text("Tabletop Game Simulator")
-                .font(Font.custom("Marker Felt", size: 36))
+        NavigationView {
+            VStack {
+                Text("Tabletop Game Simulator")
+                    .font(Font.custom("Marker Felt", size: 36))
+
+                NavigationLink("Blackjack", destination: Blackjack())
+                .font(Font.custom("Marker Felt", size: 24))
+                .padding()
+                Spacer()
+            }
+            
+         
         }
-        .padding()
-     Spacer()
+        .navigationTitle("Blackjack")
     }
 }
 

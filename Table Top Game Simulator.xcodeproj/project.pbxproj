@@ -11,6 +11,7 @@
 		9026D1262934FC3C009FCC6B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9026D1252934FC3C009FCC6B /* ContentView.swift */; };
 		9026D1282934FC3E009FCC6B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9026D1272934FC3E009FCC6B /* Assets.xcassets */; };
 		9026D12B2934FC3E009FCC6B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9026D12A2934FC3E009FCC6B /* Preview Assets.xcassets */; };
+		9026D132293512A6009FCC6B /* Blackjack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9026D131293512A6009FCC6B /* Blackjack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		9026D1252934FC3C009FCC6B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9026D1272934FC3E009FCC6B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9026D12A2934FC3E009FCC6B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		9026D131293512A6009FCC6B /* Blackjack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blackjack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +37,7 @@
 		9026D1172934FC3C009FCC6B = {
 			isa = PBXGroup;
 			children = (
+				9026D131293512A6009FCC6B /* Blackjack.swift */,
 				9026D1222934FC3C009FCC6B /* Table Top Game Simulator */,
 				9026D1212934FC3C009FCC6B /* Products */,
 			);
@@ -139,6 +142,7 @@
 			files = (
 				9026D1262934FC3C009FCC6B /* ContentView.swift in Sources */,
 				9026D1242934FC3C009FCC6B /* Table_Top_Game_SimulatorApp.swift in Sources */,
+				9026D132293512A6009FCC6B /* Blackjack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
