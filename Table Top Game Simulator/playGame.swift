@@ -29,8 +29,10 @@ struct playGame: View {
                 .resizable()
                 .frame(width: 150, height: 150)
             VStack {
-             
+             //text in main area 
                 Text("Craps")
+                    .font(Font.custom("Marker Felt", size: 40))
+                    .padding()
                 HStack {
                     //dice made rollable and shown on screen
                     Image("pips \(randomValueOne)")
@@ -65,11 +67,14 @@ struct playGame: View {
         // Showing point on screen
                 let point = randomValueOne + randomValueTwo
                 Text("Point: \(point)")
+                    .font(Font.custom("Marker Felt", size: 40))
+                    .padding()
                 Text("Roll One Over " ) + Text(roleOneOver ? "yes" : "no")
+                    .font(Font.custom("Marker Felt", size: 40))
                 Text("Roll Two Over " ) + Text(roleTwoOver ? "yes" : "no")
-                Button ("Test Point") {
-                    calculatePoint()
-                }
+                    .font(Font.custom("Marker Felt", size: 40))
+                    
+                
             }
         }
         
