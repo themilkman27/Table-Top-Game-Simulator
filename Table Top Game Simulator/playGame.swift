@@ -9,10 +9,13 @@ import SwiftUI
 
 struct playGame: View {
     @State public var point = 0
-    @State private var randomValue = 0
-    @State private var randomValue2 = 0
-    @State private var rotation2 = 0.0
-    @State private var rotation = 0.0
+    @State private var randomValueOne = 0
+    @State private var randomValueTwo = 0
+    @State private var rotationOne = 0.0
+    @State private var rotationTwo = 0.0
+    @State private var duration = 0.5
+    @State private var roleOneOver = false
+    @State private var roleTwoOver = false
     @State private var gameOver = false
     @State private var gameLoss = false
     @State private var gameWon = false
@@ -30,35 +33,40 @@ struct playGame: View {
                 Text("Craps")
                 HStack {
                     //dice made rollable and shown on screen
-                    Image("pips \(randomValue)")
+                    Image("pips \(randomValueOne)")
                         .resizable()
                         .frame(width: 150, height: 150)
-                        .rotationEffect(.degrees(rotation))
-                        .rotation3DEffect(.degrees(rotation), axis: (x: 1, y: 1, z: 0))
+                        .rotationEffect(.degrees(rotationOne))
+                        .rotation3DEffect(.degrees(rotationOne), axis: (x: 1, y: 1, z: 0))
                         .padding(50)
                         .onTapGesture {
-                            chooseRandom(times: Int.random(in: 1..<11))
-                            withAnimation(.interpolatingSpring(stiffness: 10, damping: 2)) {
-                                rotation += 360
+                            chooseRandom(times: Int.random(in: 1..<5))
+                            withAnimation(.linear(duration: duration)) {
+                                rotationOne += 360
                             }
+                           
                         }
-                    Image("pips \(randomValue2)")
+                    Image("pips \(randomValueTwo)")
                         .resizable()
                         .frame(width: 150, height: 150)
-                        .rotationEffect(.degrees(rotation2))
-                        .rotation3DEffect(.degrees(rotation2), axis: (x: 1, y: 1, z: 0))
+                        .rotationEffect(.degrees(rotationTwo))
+                        .rotation3DEffect(.degrees(rotationTwo), axis: (x: 1, y: 1, z: 0))
                         .padding(50)
                         .onTapGesture {
-                            chooseRandom2(times: Int.random(in: 1..<11))
-                            withAnimation(.interpolatingSpring(stiffness: 10, damping: 2)) {
-                                rotation2 += 360
+                            chooseRandom2(times: Int.random(in: 1..<5))
+                            withAnimation(.linear(duration: duration)) {
+                                rotationTwo += 360
                             }
+                           
+                            
                         }
+                    
                 }
         // Showing point on screen
-                let point = randomValue + randomValue2
+                let point = randomValueOne + randomValueTwo
                 Text("Point: \(point)")
-                    .padding()
+                Text("Roll One Over " ) + Text(roleOneOver ? "yes" : "no")
+                Text("Roll Two Over " ) + Text(roleTwoOver ? "yes" : "no")
                 Button ("Test Point") {
                     calculatePoint()
                 }
@@ -67,7 +75,8 @@ struct playGame: View {
         
         
         // deciding a winner
-        .onChange(of: randomValue + randomValue2, perform: { newValue in
+        
+        .onChange(of: randomValueOne + randomValueTwo, perform: { newValue in
             calculatePoint()
         })
         
@@ -80,45 +89,62 @@ struct playGame: View {
                     gameOver = false
                     gameWon = false
                     gameLoss = false
+                    roleOneOver = false
+                    roleTwoOver = false
+                    randomValueOne = 0
+                    randomValueTwo = 0
                 }
             }))
         }
     }
     func chooseRandom(times:Int) {
         if times > 0 {
+            roleOneOver = false
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                randomValue = Int.random(in: 1...6)
+                randomValueOne = Int.random(in: 1...6)
                 chooseRandom(times: times - 1)
             }
+        }
+        else {
+            roleOneOver = true
+            
         }
     }
     //calculate win and loss
     func calculatePoint() {
-        if randomValue + randomValue2 == 7 {
-    
+        if !roleOneOver || !roleTwoOver {
+            return
+        }
+        if randomValueOne + randomValueTwo == 7 {
             gameWon = true
         }
-        if randomValue + randomValue2 == 11 {
+        if randomValueOne + randomValueTwo == 11 {
             gameWon = true
         }
-        if randomValue + randomValue2 == 2 {
+        if randomValueOne + randomValueTwo == 2 {
             gameLoss = true
         }
-        if randomValue + randomValue2 == 3 {
+        if randomValueOne + randomValueTwo == 3 {
             gameLoss = true
         }
-        if randomValue + randomValue2 == 12 {
+        if randomValueOne + randomValueTwo == 12 {
             gameLoss = true
         }
-        gameOver = gameWon || gameLoss
+        gameOver = gameLoss || gameWon
+       
     }
     // for dice
     func chooseRandom2(times:Int) {
+    
         if times > 0 {
+            roleTwoOver = false
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                randomValue2 = Int.random(in: 1...6)
+                randomValueTwo = Int.random(in: 1...6)
                 chooseRandom2(times: times - 1)
             }
+        }
+        else {
+            roleTwoOver = true
         }
     }
     struct playGame_Previews: PreviewProvider {
