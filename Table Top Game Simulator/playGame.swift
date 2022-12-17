@@ -21,6 +21,7 @@ struct playGame: View {
     
     var body: some View {
         ZStack {
+            //background image
             Image("Craps0")
                 .resizable()
                 .frame(width: 150, height: 150)
@@ -28,6 +29,7 @@ struct playGame: View {
              
                 Text("Craps")
                 HStack {
+                    //dice made rollable and shown on screen
                     Image("pips \(randomValue)")
                         .resizable()
                         .frame(width: 150, height: 150)
@@ -53,6 +55,7 @@ struct playGame: View {
                             }
                         }
                 }
+        // Showing point on screen
                 let point = randomValue + randomValue2
                 Text("Point: \(point)")
                     .padding()
@@ -68,22 +71,15 @@ struct playGame: View {
             calculatePoint()
         })
         
-        
-        .alert(isPresented: $gameLoss) {
-            Alert(title: Text(loss), dismissButton: .destructive(Text("play again"),
-                                                                 action: {
-                withAnimation {
-                    point = 0
-                    gameOver = false
-                }
-            }))
-        }
-        .alert(isPresented: $gameWon) {
-            Alert(title: Text(winMessage), dismissButton: .destructive(Text("play again"),
+        //alerts on win and loss
+        .alert(isPresented: $gameOver) {
+            Alert(title: Text(gameWon ? winMessage : loss), dismissButton: .destructive(Text("play again"),
                                                                        action: {
                 withAnimation {
                     point = 0
                     gameOver = false
+                    gameWon = false
+                    gameLoss = false
                 }
             }))
         }
@@ -96,8 +92,10 @@ struct playGame: View {
             }
         }
     }
+    //calculate win and loss
     func calculatePoint() {
         if randomValue + randomValue2 == 7 {
+    
             gameWon = true
         }
         if randomValue + randomValue2 == 11 {
@@ -112,9 +110,9 @@ struct playGame: View {
         if randomValue + randomValue2 == 12 {
             gameLoss = true
         }
-        
+        gameOver = gameWon || gameLoss
     }
-    
+    // for dice
     func chooseRandom2(times:Int) {
         if times > 0 {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
